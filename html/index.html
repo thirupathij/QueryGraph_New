@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+        <head>
+                <meta charset="utf-8">
+                <title>Base Admin - Live Preview - WrapBootstrap</title>
+                <meta name="description" content="Live preview for Base Admin at WrapBootstrap">
+                <meta name="viewport" content="width=1024">
+                <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap.min.css">
+                <link rel="stylesheet" type="text/css" media="screen" href="../css/bootstrap-responsive.min.css">
+               	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+                <link href="../css/font-awesome.min.css" rel="stylesheet">  
+                <link href="../css/jquery-ui-1.10.0.custom.min.css" rel="stylesheet">    
+                <link href="../css/base-admin-2.css" rel="stylesheet">
+                <link type='text/css' href='../css/demo.css' rel='stylesheet' media='screen' />
+				<link type='text/css' href='../css/basic.css' rel='stylesheet' media='screen' />
+				<link href="../css/holsee.portlets.css" rel="stylesheet" type="text/css" />
+				<link rel="stylesheet" href="../css/jquery-ui.css" />
+				<link type="text/css" rel="stylesheet" href="../css/simplePagination.css"/>
+				<link href="../css/base-admin-2-responsive.css" rel="stylesheet">
+				<link href="../css/dashboard.css" rel="stylesheet"> 
+				
+
+				<script type="text/javascript" src="../js/dracula/jquery-1.4.2.min.js"></script>
+				<script type='text/javascript' src='../js/jquery.js'></script>
+				<script src="../js/jquery-1.9.1.js"></script>
+				<script src="../js/jquery-ui.js"></script>
+				<script type='text/javascript' src='../js/jquery.simplemodal.js'></script>
+				<script type="text/javascript" src="../js/jquery.simplePagination.js"></script>
+				<script src="../js/sorttable.js"></script>
+				<script src="../js/multiselectable.js"></script>
+				<!-- Dracula Js added Here -->
+				<!--  The Raphael JavaScript library for vector graphics display  -->
+				<script type="text/javascript" src="../js/dracula/raphael-min.js"></script>
+				<!--  Dracula  -->
+				<!--  An extension of Raphael for connecting shapes -->
+				<script type="text/javascript" src="../js/dracula/dracula_graffle.js"></script>
+				<!--  Graphs  -->
+				<script type="text/javascript" src="../js/dracula/dracula_graph.js"></script>
+				<script type="text/javascript" src="../js/dracula/dracula_algorithms.js"></script>
+				
+				<!-- Dracula Js added Here -->
+				<!-- <script type='text/javascript' src='../js/basic.js'></script> -->
+				<script type='text/javascript' src='../js/query.js'></script>
+				<script src='http://d3js.org/d3.v2.js'></script>
+				<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+				</script>
+
+				<script type="text/javascript">
+				$(document).ready(function() {
+    // var width = $(document).width();
+    // var height = $(document).height();
+    
+});
+
+				</script>
+
+
+				
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+	$('.multi').multiselectable({
+            selectableLabel: 'All DS',
+            selectedLabel: 'Selected DS'
+    });
+  });
+</script>
+<script>
+$(function() {
+//$( "#accordion" ).accordion();
+
+$("#accordion").accordion({
+    active: true,
+    collapsible: true,
+    autoHeight: false,
+    navigation: true    
+});
+});
+</script>
+
+
+
+<script type="text/javascript">
+
+      var map;
+      var infoWindow;
+      var message = ['This', 'is', 'the', 'secret', 'message'];
+	  var markersArray=[];
+      
+      function initialize(latitude,longtitude) {
+	     var mapDiv = document.getElementById('googleMap');
+        map = new google.maps.Map(mapDiv, {
+          //center: new google.maps.LatLng(37.680000, -122.510000),
+		// center: new google.maps.LatLng(37.4419, -122.1419),
+		//center: new google.maps.LatLng(48.763431, -74.201660),
+		center: new google.maps.LatLng(latitude, longtitude),
+		
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    	  //  infoWindow = new google.maps.InfoWindow();
+	 	google.maps.event.addListenerOnce(map, 'tilesloaded', addMarkers);
+	  }
+	
+	function viewClickImage(){
+	var latitude=48.763431;
+	var longitude=-74.201660;
+	initialize(latitude,longitude);
+	
+	 var bounds = map.getBounds();
+	  var rectangle = new google.maps.Rectangle({
+	
+		bounds: bounds,
+		editable: true,
+		/*strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 1,
+		fillColor: '#FF0000',
+		fillOpacity: 0.35 */
+		});
+		
+		rectangle.setMap(map);
+	
+	}
+	
+	function mapChangePress(e){
+	var keyCode=e.keyCode || e.which;
+	var qName=document.getElementById('regquerySearch').value;
+	
+	if(keyCode === 13){
+	
+		var latitude;
+		var longitude;
+		if(qName == 'Name2' || qName=='name2'){
+		latitude=37.680000;
+		longitude=-122.510000;
+	}else if(qName == 'Name3' || qName=='name3'){
+	    latitude=48.763431;
+		longitude=-74.201660;
+	}else if(qName == 'Name4' || qName=='name4'){
+	    latitude=12.9833;
+		longitude=77.5833;
+	}else if(qName == 'Name5' || qName=='name5'){
+	    latitude=35.6833;
+		longitude=139.7667;
+	}else if(qName == 'Name6' || qName=='name6'){
+	    latitude=42.1497;
+		longitude=-74.9384;
+	}else{
+	 latitude=37.4419;
+	 longitude=-122.1419;
+	}
+		initialize(latitude,longitude);
+		}
+
+		 var bounds = map.getBounds();
+		var rectangle = new google.maps.Rectangle({
+	
+		bounds: bounds,
+		editable: true,
+		/*strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 1,
+		fillColor: '#FF0000',
+		fillOpacity: 0.35 */
+		});
+		
+		rectangle.setMap(map);
+		
+		
+	}	
+	
+		window.onload = function(){
+		var lati=37.4419;
+		var longi=-122.1419;
+		initialize(lati,longi);
+
+
+
+		}
+
+	
+			
+      function viewMap(){
+	  var bounds = map.getBounds();
+	  var rectangle = new google.maps.Rectangle({
+	
+		bounds: bounds,
+		editable: true,
+		/*strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 1,
+		fillColor: '#FF0000',
+		fillOpacity: 0.35 */
+		});
+		rectangle.setMap(map);
+		
+	  }
+	 
+	  
+      function addMarkers() {
+        var bounds = map.getBounds();
+        var southWest = bounds.getSouthWest();
+        var northEast = bounds.getNorthEast();
+        var lngSpan = northEast.lng() - southWest.lng();
+        var latSpan = northEast.lat() - southWest.lat();
+      
+	     
+	  
+        function createMarker(map, position, number) {
+          var marker = new google.maps.Marker({
+            position: position,
+            map: map
+          });
+		  
+		  
+		  google.maps.event.addListener(marker, 'click', function() {
+		  var data;
+		  
+		  if(number==1){
+			data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5];
+		  		   
+   		 }else if(number==2){
+			data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2];
+			
+		 }else if(number==3){
+			data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9];
+			
+		 }else if(number==4){
+			data = [3, 6, 2, 7, 5, 2, 0, 2, 5, 9];
+		
+		  }else if(number==5){
+			data = [ 7, 5, 2, 0, 3, 8, 9, 2, 5, 9];
+		
+		   }else if(number==6){
+			data = [3, 6, 2,0, 3, 8, 9, 2, 5, 9];
+	    }else if(number==7){
+			data = [5, 2, 0, 3, 8, 9, 2, 5, 9];
+		}
+		  
+		  
+		 renderLineChart(data);
+		 //var myHtml = '<strong>#' + number + '</strong><br/>' + message[number - 1];
+           // infoWindow.setContent(myHtml);
+           // infoWindow.open(map, marker);
+          });
+		      		   
+        }
+      
+        for (var i = 1; i <= 7; i++) {
+          var latLng = new google.maps.LatLng(southWest.lat() + latSpan * Math.random(),
+                                              southWest.lng() + lngSpan * Math.random());
+      
+          createMarker(map, latLng, i);
+        }
+      }
+	  
+	      
+      google.maps.event.addDomListener(window, 'load', initialize);
+	  
+	</script>
+	<script>
+  $(function(){
+    $('.portlet-container').holseePortlets();
+  });
+  </script>
+ <script>
+  $(function() {
+  
+    var availableTags = [
+      "Name2",
+      "Name3",
+      "Name4",
+      "Name5",
+      "Name6"
+     ];
+    
+    $( "#regquerySearch" ).autocomplete({
+      source: availableTags
+    });
+  });
+  </script>
+<script>
+  $(function() {
+  
+    var availableTags = [
+      "Name2",
+      "Name3",
+      "Name4",
+      "Name5",
+      "Name6"
+     ];
+    
+    $( "#dsSearch" ).autocomplete({
+      source: availableTags
+    });
+  });
+  </script>
+
+    
+        </head>
+        <body>
+		
+			
+		
+                <div id="main">
+                       
+                           
+     <div class="navbar navbar-inverse navbar-fixed-top">
+	 <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/jquery-ui-1.10.0.custom.min.js"></script>
+
+	<div class="navbar-inner">
+ 		<div class="container" >
+			
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<i class="icon-cog"></i>
+			</a>
+			
+						
+			<div class="nav-collapse collapse">
+			
+			<ul class="nav pull-right">
+				<li class="dropdown">
+						
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="logout()">
+							Logout
+						</a>
+		
+					</li>
+				
+				</ul>
+			
+			
+			<ul class="nav pull-right">
+			<li class="dropdown">
+						
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-cog"></i>
+							Settings
+							<b class="caret"></b>
+						</a>
+						
+						<ul class="dropdown-menu">
+							<li><a href="javascript:;">Account Settings</a></li>
+							<li><a href="javascript:;">Privacy Settings</a></li>
+							<li class="divider"></li>
+							<li><a href="javascript:;">Help</a></li>
+						</ul>
+					</li>
+			
+											
+				</ul>
+				
+												
+			</div><!--/.nav-collapse -->	
+	
+		</div> <!-- /container -->
+		
+	</div> <!-- /navbar-inner -->
+	
+</div> <!-- /navbar -->
+    
+  
+    
+<div class="main">
+
+    <div class="container" style="margin-top:30px">
+
+      <div class="row">
+      	
+      	<div class="span5" style="height:100%">
+        
+        <div class="widget">
+				
+				 <div class="widget-header">
+				 <h3>Registered Queries</h3>
+          
+		    
+				</div> <!-- /widget-header -->
+				<div class="widget-content">
+				<div>
+		<table>
+		<tr>
+		<td>
+		<input name="filter" onkeyup="filter(this, 'queryTable', 1)" type="text" placeholder="Query Name" style="width:90%" id="regquerySearch" onkeypress="mapChangePress(event)">
+		</td>
+		<td>
+		<select id = "IdList" style="width:105%">
+					<option value = "select">ID</option>
+					<option value = "d1">D1</option>
+					<option value = "d2">D2</option>
+					<option value = "d3">D3</option>
+					</select>
+		</td>
+		</tr>
+</table>		
+			</div>	
+<table class="table table-bordered sortable" style="margin-top:10px;margin-right:30px;" id="queryTable">
+						<thead>
+							<tr>
+								<th>QID</th>
+								<th>Query Name</th>
+								<th>Status</th>
+								<th>Control</th>
+								</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Q2</td>
+								<td>Name2</td>
+								<td>Process</td>
+								<td><img src='../img/start.png' style="height:18px;width:16" id="startRS" title="Execute" onclick="alert('started')"></td>
+							</tr>
+							<tr>
+								<td>Q3</td>
+								<td>Name3</td>
+								<td>Process</td>
+								<td><img src='../img/start.png' style="height:18px;width:16" id="startRS" title="Execute" onclick="alert('started')"></td>
+							</tr>
+							<tr>
+								<td>Q4</td>
+								<td>Name4</td>
+								<td>Process</td>
+								<td><img src='../img/start.png' style="height:18px;width:16" id="startRS" title="Execute" onclick="alert('started')"></td>
+							</tr>
+							<tr>
+								<td>Q5</td>
+								<td>Name5</td>
+								<td>Process</td>
+								<td><img src='../img/start.png' style="height:18px;width:16" id="startRS" title="Execute" onclick="alert('started')"></td>
+							</tr>
+						<tr>
+								<td>Q6</td>
+								<td>Name6</td>
+								<td>Process</td>
+								<td><img src='../img/start.png' style="height:18px;width:16" id="startRS" title="Execute" onclick="alert('started')"></td>
+							</tr>							             
+							</tbody>
+						</table>
+					
+					
+					
+				</div> <!-- /widget-content -->	
+				
+				<div class="widget-header" style="margin-top:2%;">
+				 <h5 style="margin-top:3%;margin-left:3%">Register Data Source<img src='../img/add.jpg' style="height:18px;width:16;padding-left:3px" id="imgaddDS" title="Add Data Source">
+				 <img src='../img/view.jpg' style="height:18px;width:16" id="viewDSimg" title="View Data Source" onclick="viewClickImage()"></h5>
+				 
+          		</div> <!-- /widget-header -->
+				<div class="widget-content">
+				
+
+<div>
+		<table>
+		<tr>
+		<td>
+		<input name="filter" onkeyup="filter(this, 'datasourceTable', 1)" type="text" placeholder="Data Source Name" style="width:90%" id="dsSearch">
+		</td>
+		<td>
+		<select id = "IdList" style="width:105%">
+					<option value = "select">ID</option>
+					<option value = "d1">D1</option>
+					<option value = "d2">D2</option>
+					<option value = "d3">D3</option>
+					</select>
+		</td>
+		</tr>
+</table>		
+			</div>
+
+				
+<table class="table table-bordered sortable" style="margin-top:10px;margin-right:30px;" id="datasourceTable">
+						<thead>
+							<tr>
+								<th>DSID</th>
+								<th>DS Name</th>
+								<th>Status</th>
+								<th></th>
+								</tr>
+						</thead>
+						<tbody>
+							<tr id="firstRow">
+								<td>Q2</td>
+								<td>Name2</td>
+								<td>Process</td>
+								<td>Icon</td>
+							</tr>
+							<tr>
+								<td>Q3</td>
+								<td>Name3</td>
+								<td>Process</td>
+								<td>Icon</td>
+							</tr>
+							<tr>
+								<td>Q4</td>
+								<td>Name4</td>
+								<td>Process</td>
+								<td>Icon</td>
+							</tr>
+							<tr>
+								<td>Q5</td>
+								<td>Name5</td>
+								<td>Process</td>
+								<td>Icon</td>
+							</tr>
+						<tr>
+								<td>Q6</td>
+								<td>Name6</td>
+								<td>Process</td>
+								<td>Icon</td>
+							</tr>							             
+							</tbody>
+							
+						</table>
+			<!--		<div id="pagination"></div>		>-->			
+					
+				</div> <!-- /widget-content -->	
+			
+				
+				
+			
+			</div> <!-- /widget -->
+           		
+	    </div> <!-- /span5 -->
+      	
+        
+      	
+      	<div class="span9">	
+      		
+			<div id="tabs" style="margin-bottom:2%">
+  <ul style="background:#aad2fa">
+    <li><a href="#tabs-1">Filter<img src='../img/filter.png' style="height:32px;width:32"></a></li>
+    <li><a href="#tabs-2">Group<img src='../img/grouping.png' style="height:32px;width:32"></a></li>
+    <li><a href="#tabs-3">Aggregation<img src='../img/aggregation.png' style="height:32px;width:32"></a></li>
+	<li><a href="#tabs-4">Pattern<img  src='../img/spchar.png'  style="height:32px;width:32"></a></li>
+	<li><a href="#tabs-5">Temporal Char<img src='../img/spm.png' style="height:32px;width:32"></a></li>
+
+  </ul>
+  <div id="tabs-1">
+  <table style="width:94%">
+  <thead>
+  <th align="left" style="padding-right:2%">
+  &nbsp;
+  </th>
+  <th align="right">
+  &nbsp;
+  </th>
+  <th align="left" style="padding-left:2%">
+  <input type="checkbox" name="bounds" value="bounds" checked>
+ Specify Value Bounds
+  </th>
+  <th align="left">
+  <input type="checkbox" name="boundsspat" value="bounds" id="chksptbounds">
+ Specify Spatial Bounds
+  </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td colspan="2">
+  <select class="multi" multiple style="width:90%" id="sSource">
+  <option value="DS1" >D1:Test</option>
+  <option value="DS2">D2:Test</option>
+  <option value="DS3">D3:Test</option>
+  <option value="DS4">D4:Test</option>
+</select>
+  </td>
+  
+  <td style="padding-left:2%">
+    <table>
+  <tbody>
+  <tr>
+  <td valign="top" style="padding-left:10%">
+  Min Value:&nbsp;&nbsp;<input type="text" style="width:40%" placeholder="-99999"/>
+  </td>
+  </tr>
+  <tr>
+  <td valign="top" style="padding-left:10%">
+  Max Value:&nbsp;<input type="text" style="width:40%" placeholder="999999"/>
+  </td>
+  </tr>
+  
+  </tbody>
+  </table>
+  </td>
+  
+  <td style="padding-left:1%">
+   <table id="spatBounds" style="display:none">
+  <tbody>
+  <tr>
+  <td valign="top" style="padding-left:5%">
+  Min Value:&nbsp;&nbsp;<input type="text" style="width:30%" placeholder="-99999"/>
+  </td>
+  </tr>
+  <tr>
+  <td valign="top" style="padding-left:5%">
+  Max Value:&nbsp;<input type="text" style="width:30%" placeholder="999999"/>
+  </td>
+  </tr>
+  
+  </tbody>
+  </table>
+  </td>
+  
+  </tr>
+  <tr>
+  <td>
+  <input type="button" value="Start" style="margin-top:15%" id="showGraph" onclick="filterStart()"/>
+  </td>
+  <td>
+  </td>
+  <td style="padding-left:4%">
+  <input type="checkbox" name="bounds" value="bounds" checked>
+  Value Normalization
+  </td>
+  </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  </td>
+  <td>
+  <table>
+  <tbody>
+  <tr>
+  <td valign="top" style="padding-left:15%">
+ Min Value:&nbsp;&nbsp;<input type="text" style="width:40%;" placeholder="0"/>
+  </td>
+  </tr>
+  <tr>
+  <td valign="top" style="padding-left:15%">
+  Max Value:&nbsp;<input type="text" style="width:40%" placeholder="100"/>
+  </td>
+  </tr>
+  </tr>
+  </tbody>
+  </table>
+
+  </td>
+  </tr>
+   </tbody>
+  </table>
+    </div>
+  <div id="tabs-2">
+   <table style="width:100%">
+  <thead>
+  <th align="left" style="padding-right:2%">
+  &nbsp;
+  </th>
+  <th align="left" style="padding-right:1%">
+  &nbsp;
+  </th>
+  <th align="left">
+  Groupby
+  </th>
+  <th align="left" style="padding-left:1%">
+  No.of Groups
+  </th>
+  <th align="left">
+  Separate images for groups?
+  </th>
+  <th align="left">
+  Group Colors
+  </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td colspan="2">
+  <select class="multi" multiple style="width:100%" id="gSource">
+  <option value="DS1">D1:Test</option>
+  <option value="DS2">D2:Test</option>
+  <option value="DS3">D3:Test</option>
+  <option value="DS4">D4:Test</option>
+</select>
+  </td>
+  
+  <td style="padding-left:1%;padding-bottom:5%">
+    <select style="width:90%;margin-left:1%" id="groupBy">
+  <option value="G1" selected>D1:Test</option>
+  <option value="G2">D2:Test</option>
+  <option value="G3">D3:Test</option>
+</select>
+ </td>
+  <td style="padding-left:2%;padding-bottom:5%">
+  <input type="text" style="width:40%;" placeholder="2"/>
+   </td>
+   <td style="padding-bottom:5%">
+  <select style="width:75%;">
+  <option value="d1" selected>True</option>
+  <option value="d2">False</option>
+  </select>
+   </td>
+  <td style="padding-left:2%;padding-bottom:5%">
+  <select style="width:85%;">
+  <option value="d1">Red</option>
+  <option value="d2">Yellow</option>
+  <option value="d2">Green</option>
+  </select>
+   </td>
+  
+  </tr>
+  <tr>
+  <td>
+  <input type="button" value="Start" style="margin-top:15%" id="showGraphg" onclick="groupStart()"/>
+  </td>
+  <td>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  </td>
+  <td>
+  
+  </td>
+  </tr>
+   </tbody>
+  </table>
+  </div>
+  <div id="tabs-3">
+  <table style="width:90%">
+  <thead>
+  <th align="left" style="padding-right:3%">
+  &nbsp;
+  </th>
+  <th align="right">
+  &nbsp;
+  </th>
+  <th align="left" style="padding-left:5%">
+  <input type="checkbox" name="bounds" value="bounds" checked>
+ Value Normalization
+  </th>
+  <th align="left">
+   Aggregation Operator
+  </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td colspan="2">
+  <select class="multi" multiple style="width:100%" id="aSource">
+  <option value="DS1">D1:Test</option>
+  <option value="DS2">D2:Test</option>
+  <option value="DS3">D3:Test</option>
+  <option value="DS4">D4:Test</option>
+</select>
+  </td>
+  
+  <td style="padding-left:2%">
+    <table>
+  <tbody>
+  <tr>
+  <td valign="top" style="padding-left:10%">
+  Min Value:&nbsp;&nbsp;<input type="text" style="width:40%" placeholder="-99999"/>
+  </td>
+  </tr>
+  <tr>
+  <td valign="top" style="padding-left:10%">
+  Max Value:&nbsp;<input type="text" style="width:40%" placeholder="999999"/>
+  </td>
+  </tr>
+  
+  </tbody>
+  </table>
+  </td>
+  <td style="padding-bottom:5%">
+  <select style="width:100%" id="aggBy">
+  <option value="A1" selected>Avg</option>
+  <option value="A2">Max</option>
+  <option value="A3">Min</option>
+  <option value="A4">Sum</option>
+</select>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <input type="button" value="Start" style="margin-top:15%" id="showAggGraph" onclick="aggregateStart()"/>
+  </td>
+  <td>
+  </td>
+   </tr>
+  </tr>
+  </tbody>
+  </table>
+
+  </td>
+  </tr>
+   </tbody>
+  </table>
+    </div>
+   <div id="tabs-4">
+  <table style="width:95%">
+  <thead>
+  <th align="left" style="padding-right:3%">
+  Select data source
+  </th>
+   <th align="left" style="padding-right:3%">
+  Selected data source
+  </th>
+   <th align="left" style="padding-left:3%">
+  Normalize Pattern
+  </th>
+  <th align="left" style="padding-left:2%">
+  Normalize pattern value
+  </th>
+  <th align="left">
+  Select Pattern Source
+  </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td style="padding-bottom:5%">
+  <select multiple style="width:100%" id="sSource">
+  <option value="DS1" selected>D1:Test</option>
+  <option value="DS2">D2:Test</option>
+  <option value="DS3">D3:Test</option>
+  <option value="DS4">D4:Test</option>
+</select>
+  </td>
+   <td style="padding-bottom:5%">
+  <select multiple style="width:100%" id="sSource">
+  <option value="DS1" selected>D1:Test</option>
+  <option value="DS2">D2:Test</option>
+  <option value="DS3">D3:Test</option>
+  <option value="DS4">D4:Test</option>
+</select>
+  </td>
+ 
+  <td style="padding-left:2%;padding-bottom:5%">
+    <select style="width:100%">
+  <option value="d1" selected>True</option>
+  <option value="d2">False</option>
+  </select>
+ </td>
+  <td style="padding-left:2%;padding-bottom:5%">
+    <select style="width:60%">
+  <option value="d1" selected>True</option>
+  <option value="d2">False</option>
+  </select>
+  </td>
+   <td style="padding-left:1%;padding-bottom:5%">
+    <select style="width:70%">
+  <option value="d1" selected>Input from file</option>
+  <option value="d2">Create new</option>
+  </select>
+  </td>
+ 
+  </tr>
+  <tr>
+  <td>
+  <input type="button" value="Start" style="margin-top:15%" id="showGraph" onclick="changeTreeValue()"/>
+  </td>
+  <td>
+  </td>
+  </tr>
+   </tbody>
+  </table>
+ 
+ 
+ </div>
+<div id="tabs-5">
+  <table style="width:100%">
+  <thead>
+  <th align="left" style="padding-right:1%">
+  Select data source
+  </th>
+  <th align="left" style="padding-right:1%">
+  Selected data source
+  </th>
+   <th align="left" style="padding-left:1%">
+  Normalize Pattern
+  </th>
+  <th align="left" style="padding-left:1%">
+  Normalize pattern value
+  </th>
+  <th align="left" style="padding-left:1%">
+  Time Window
+  </th>
+  <th align="left">
+  Select Pattern Source
+  </th>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
+  <select multiple style="width:80%" id="sSource">
+  <option value="d1" selected>D1:Test</option>
+  <option value="d2">D2:Test</option>
+  <option value="d3">D3:Test</option>
+  <option value="d4">D4:Test</option>
+</select>
+  </td>
+  <td>
+  <select multiple style="width:80%" id="sSource">
+  <option value="d1" selected>D1:Test</option>
+  <option value="d2">D2:Test</option>
+  <option value="d3">D3:Test</option>
+  <option value="d4">D4:Test</option>
+</select>
+  </td>
+  <td style="padding-left:1%;padding-bottom:5%">
+    <select style="width:80%">
+  <option value="d1" selected>True</option>
+  <option value="d2">False</option>
+  </select>
+ </td>
+  <td style="padding-left:1%;padding-bottom:5%">
+    <select style="width:60%">
+  <option value="d1" selected>True</option>
+  <option value="d2">False</option>
+  </select>
+  </td>
+  <td style="padding-left:1%;padding-bottom:5%">
+  <input type="text" style="width:30%" placeholder="0"/>
+  </td>
+   <td align="left" style="padding-left:1%;padding-bottom:5%">
+    <select style="width:70%">
+  <option value="d1" selected>Input from file</option>
+  <option value="d2">Create new</option>
+  </select>
+  </td>
+ 
+  </tr>
+  <tr>
+  <td>
+  <input type="button" value="Start" style="margin-top:15%" id="showGraph" onclick="changeTreeValue()"/>
+  </td>
+  <td>
+  </td>
+  </tr>
+   </tbody>
+  </table>
+ 
+ 
+ </div>
+</div>
+
+
+<div class="widget" id="accordion" style="margin-bottom:2%">
+<div class="widget-header">
+<h3>Query Graph</h3>
+</div> <!-- /widget-header -->
+				
+<div class="widget-content">
+<div class="stats">
+<div id="canvas" style="height:400px;">
+
+</div>
+</div> <!-- /stats -->
+</div> <!-- /widget-content -->
+</div>
+
+
+<div class="widget">
+		
+								
+			<div class="widget  widget-table action-table">
+					
+                		<div class="widget">
+					
+				<div class="widget-header">
+					<h3>Map</h3>
+				<!--	<select id = "chartList" style="height:70%;width:30%">
+					<option value = "select">Select Chart</option>
+					<option value = "bar">Bar Chart</option>
+					<option value = "line">Line Chart</option>
+					<option value = "pie">Pie Chart</option>
+					</select> -->
+				</div> <!-- /widget-header -->
+				
+				<div class="widget-content">
+				
+					<div class="stats">
+						
+						<div id="googleMap" style="width:850px;height:285px;"></div>
+						<div style="margin-top:1%">
+						<table>
+						<thead>
+						</thead>
+						<tbody>
+						<tr>
+						<td style="width:15%">
+						Min value:&nbsp;<input type="text" style="width:30%" placeholder="0"/>
+						</td>
+						<td align="left" style="width:15%">
+						Max value:&nbsp;<input type="text" style="width:30%" placeholder="100"/>
+						</td>
+						<td align="left" style="width:25%">
+						Numeric Output:&nbsp;<input type="text" style="width:20%" placeholder="-"/>
+						</td>
+						<td align="left" style="width:30%">
+						Date:&nbsp;<input type="text" style="width:30%" placeholder="18/06/2013"/>
+						</td>
+						<td>
+						<input type="checkbox" name="Hide" value="HideMap" style="margin-bottom:7px" id="maphide"> Hide Map
+						</td>						
+						</tr>
+						</tbody>
+						</table>
+						</div>
+						<div id="graph" class="aGraph"></div>
+           					
+					</div> <!-- /stats -->
+					
+					
+				
+				</div> <!-- /widget-content -->
+				
+				
+				
+					
+			</div> <!-- /widget -->	
+
+      			</div> <!-- /widget -->
+								
+	      </div> <!-- /span6 -->
+			  
+      	
+		<div>
+	 </div>
+		
+		
+      </div> <!-- /row -->
+	 
+	  	  
+    </div> <!-- /container -->
+
+    
+</div> <!-- /main -->
+    <div id="basic-modal-content">
+	<div>
+			<table>
+      <tr>
+      <td><label >Theme</label></td>
+      <td><input type="text" style="margin-left:5%"/></td>
+      </tr>
+      <tr>
+      <td><label >Name</label></td>
+      <td><input type="text" style="margin-left:5%"/></td>
+      </tr>
+       <tr>
+      <td><label >URL/Path</label></td>
+      <td><input type="text" style="margin-left:5%"/></td>
+      </tr>
+	   <tr>
+      <td><label >Date Format</label></td>
+      <td><input type="text" style="margin-left:5%"/></td>
+      </tr>
+      </table>
+		</div>
+    <div>
+			<input type="button" value="Add" style="margin-top:15%" id="add"/>
+      <input type="button" value="Cancel" style="margin-top:15%" id="cancel"/>
+      </div>
+		</div>
+    
+
+<div class="extra">
+
+	<div class="container">
+
+		<div class="row">
+			
+			<div class="span3">
+				
+								
+				<ul>
+					<li><a href="javascript:;">About Us</a></li>
+					
+				</ul>
+				
+			</div> <!-- /span3 -->
+			
+			<div class="span3">
+				
+								
+				<ul>
+					<li><a href="javascript:;">Frequently Asked Questions</a></li>
+					
+				</ul>
+				
+			</div> <!-- /span3 -->
+			
+			<div class="span3">
+				
+								
+				<ul>
+					<li><a href="javascript:;">License</a></li>
+					</ul>
+				
+			</div> <!-- /span3 -->
+			
+			<div class="span3">
+				
+								
+				<ul>
+					<li><a href="javascript:;">Consectetur adipisicing</a></li>
+					
+				</ul>
+				
+			</div> <!-- /span3 -->
+			
+		</div> <!-- /row -->
+
+	</div> <!-- /container -->
+
+</div> <!-- /extra -->
+
+<script src="../js/jquery.holsee.portlets.js"></script>
+
+
+ 
+<script type="text/javascript">
+
+var redraw, g, renderer;
+var filterCount = 1;
+var aggCount = 1;
+var sumCount = 1;
+var resultCount = 1;
+var initial ="Start";
+
+
+/* only do all this when document has finished loading (needed for RaphaelJS) */
+    
+    //var width = $(document).width() - 20;
+    //var height = $(document).height() - 60;
+
+    var width = 700;
+    var height = 400;
+    
+	var filterSelectedDS = [];
+	var groupSelectedDS = [];
+	var aggregationSelectedDS = [];
+
+	var queryFilter =  '';
+	var queryGroup = '';
+	var queryAggregation = '';
+	var queriesAll = [];
+
+
+	function filterStart(){
+
+		$('#canvas').html('');
+
+		var block_none = $('#ui-accordion-accordion-panel-0').css('display');
+		if(block_none == 'none'){
+			$('#ui-accordion-accordion-panel-0').css('display','block');			
+		}
+
+		
+
+		//Getting selected values
+		$('#sSource option:selected').each(function(){
+	       	var selectedValue =$(this).val();
+	        filterSelectedDS.push(selectedValue);			
+		});
+
+		console.log("Selected Elements in Filter: "+removeDuplicates(filterSelectedDS));
+		filterSelectedDS = removeDuplicates(filterSelectedDS);
+		var queryFilter =  new queryOp("Filter", filterSelectedDS);
+		queriesAll.push(queryFilter);
+		formGraph(queriesAll);
+		
+	}
+
+	function groupStart(){
+
+		$('#canvas').html('');
+
+		//Getting selected values
+		$('#gSource option:selected').each(function(){
+	       	var selectedValue =$(this).val();
+	        groupSelectedDS.push(selectedValue);			
+		});
+
+		console.log("Selected Elements in Group: "+removeDuplicates(groupSelectedDS));
+		groupSelectedDS = removeDuplicates(groupSelectedDS);
+		var queryGroup =  new queryOp("Sum", groupSelectedDS);
+		queriesAll.push(queryGroup);
+		formGraph(queriesAll);
+		
+	}
+
+	function aggregateStart(){
+
+		$('#canvas').html('');
+
+		//Getting selected values
+		$('#aSource option:selected').each(function(){
+	       	var selectedValue =$(this).val();
+	        aggregationSelectedDS.push(selectedValue);			
+		});
+
+		console.log("Selected Elements in Aggregate: "+removeDuplicates(aggregationSelectedDS));
+		aggregationSelectedDS = removeDuplicates(aggregationSelectedDS);
+		var queryAggregation =  new queryOp("Aggregate", aggregationSelectedDS);
+		queriesAll.push(queryAggregation);
+		formGraph(queriesAll);
+		
+	}
+
+
+
+	//console.log("After removing duplicates: "+removeDuplicates(inputArray));
+
+	function removeDuplicates(inputArray) {
+            var outputArray=new Array();
+
+            if(inputArray.length>0){
+                jQuery.each(inputArray, function(index, value) {
+                    if(jQuery.inArray(value, outputArray) == -1){
+                        outputArray.push(value);
+                    }
+                });
+            }           
+            return outputArray;
+    }
+
+
+
+	function queryOp (opType,opNodes) {
+		this.opName = getOpName(opType);
+		this.opType = opType;
+		this.queryNodes = new getQueryNodes(opNodes);
+		this.queryEdges = opNodes;
+		//this.nodes = getNode(opNodes);
+		this.result = "R"+resultCount;
+
+		$('#sSource').append('<option value="'+this.result+'">'+this.result+'</option>');
+		$('#m-selectable').append('<option value="'+this.result+'">'+this.result+'</option>');
+
+		$('#gSource').append('<option value="'+this.result+'">'+this.result+'</option>');
+		$('#m-selectable_1').append('<option value="'+this.result+'">'+this.result+'</option>');
+		
+		$('#aSource').append('<option value="'+this.result+'">'+this.result+'</option>');
+		$('#m-selectable_2').append('<option value="'+this.result+'">'+this.result+'</option>');
+		
+		resultCount++;
+		
+	}
+	
+	function getOpName(opType) {
+		opName = "";
+		switch(opType) {
+			case "Filter" :
+				opName = "F" + filterCount;
+				filterCount++;
+				break;
+			case "Aggregate" :
+				opName = "A" + aggCount;
+				aggCount++;
+				break;
+			case "Sum" :
+				opName = "S" + sumCount;
+				sumCount++;
+				break;
+			
+		}
+		return opName;
+	}
+	
+	function getQueryNodes(opNodes) {
+		var queryNodes = new Array();
+		var count = 0;
+		for (var i=0;i<opNodes.length;i++) {	
+			/*if(opNodes[i].substring(0,1) == "R") {
+				continue;
+			}*/
+			queryNodes[count] = new queryNode(opNodes[i]);
+			//console.log("opnodes: "+opNodes[i]);
+			count++;
+		}
+		//console.log("sending nodes "+queryNodes.length);
+		return queryNodes;
+	}
+	function queryNode(opNode) {					
+			this.nodeName = opNode;
+			this.nodeEdge1 = ((opNode.substring(0,1) == "R")?opNode:initial);
+			this.nodeEdge2 = ((opNode.substring(0,1) == "R")?"":opNode);					
+	}
+	
+	
+	function formGraph(queries) {
+		g = new Graph();
+		g.addNode(initial);
+		//console.log("starting");
+		for(var j=0;j<queries.length;j++) {
+			g.addNode(queries[j].opName);			
+			for (var k=0;k<queries[j].queryNodes.length;k++) {
+				g.addNode(queries[j].queryNodes[k].nodeName);
+				if (queries[j].queryNodes[k].nodeEdge2 != "") {
+					g.addEdge(queries[j].queryNodes[k].nodeEdge1,queries[j].queryNodes[k].nodeEdge2);
+				}
+				g.addEdge(queries[j].queryNodes[k].nodeName,queries[j].opName);
+				
+			}
+			g.addNode(queries[j].result);
+			g.addEdge(queries[j].opName,queries[j].result);
+			
+		}		
+		var layouter = new Graph.Layout.Spring(g);
+    
+    /* draw the graph using the RaphaelJS draw implementation */
+			renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+			
+			redraw = function() {
+				layouter.layout();
+				renderer.draw();
+			};
+	}
+  
+</script>
+
+ </body>
+</html>
